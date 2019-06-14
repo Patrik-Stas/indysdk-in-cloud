@@ -1,0 +1,6 @@
+.DS_Store
+*tfstate
+*tfstate.backup
+.terraform/
+.idea/
+rendered.json
