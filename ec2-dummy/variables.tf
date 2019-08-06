@@ -11,7 +11,7 @@ variable "source-ami" {
 }
 
 variable "instance-type" {
-  default = "t2.medium"
+  default = "t2.small"
 }
 
 variable "keypair-name" {
@@ -39,5 +39,9 @@ variable "log_level_dummy" {
 }
 
 variable "ijprovision" {
-  default = "v1.8.3.relelase"
+  default = "v1.8.3.release"
+}
+
+variable "instance-name" {
+  default = "terraformed-dummy-agency"
 }

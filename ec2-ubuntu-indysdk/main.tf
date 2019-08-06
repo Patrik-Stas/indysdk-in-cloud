@@ -22,8 +22,7 @@ resource "aws_instance" "docker-ami-template" {
   }
 
   tags {
-    Name = "indysdk-machine"
-    Version = "0.0.1"
+    Name = "${var.instance-name}"
   }
 
   provisioner "file" {
@@ -37,7 +36,7 @@ resource "aws_instance" "docker-ami-template" {
       "set -e",
 
       "export TF_INSTALL_NODE_VERSION='v8.16.0'",
-      "export TF_INSTALL_CARGO='0.33.0-1ubuntu1~16.04.1'",
+      "export TF_INSTALL_CARGO='0.36.0-0ubuntu1~16.04.1'",
       "export TF_INSTALL_INDYJUMP_VERSION='v1.1.0'",
       "export TF_INSTALL_INDYSDK='v1.8.3'",
 
@@ -77,7 +76,7 @@ resource "aws_instance" "docker-ami-template" {
       "ijcreate \"$TF_INSTALL_INDYSDK.debug\" debug",
 
       "echo \"Indyjump provisioning indy-sdk at release version $TF_INSTALL_INDYSDK\"",
-      "ijcreate \"$TF_INSTALL_INDYSDK.relelase\" release",
+      "ijcreate \"$TF_INSTALL_INDYSDK.release\" release",
 
       "rm \"$HOME/scripts/\"*",
       "rmdir \"$HOME/scripts\"",

@@ -13,8 +13,9 @@ resource "aws_instance" "dummy_cloud_agency" {
   instance_type = "${var.instance-type}"
   key_name = "${var.keypair-name}"
   availability_zone = "${var.availability-zone}"
-  tags = {
-    Name = "terraformed-dummy-agency"
+
+  tags {
+    Name = "${var.instance-name}"
   }
 
   connection {
@@ -60,9 +61,8 @@ resource "null_resource" "provision" {
       "set -x",
       "export INDY_SDK_SRC=$HOME/indy-sdk",
       "ijump ${var.ijprovision}",
-      "cargo build --manifest-path=\"$INDY_SDK_SRC\"/vcx/dummy-cloud-agent/Cargo.toml",
+      "cargo build --release --manifest-path=\"$INDY_SDK_SRC\"/vcx/dummy-cloud-agent/Cargo.toml",
       "echo \"${data.template_file.agency_config.rendered}\" > \"$INDY_SDK_SRC\"/vcx/dummy-cloud-agent/config/${var.agency_name}.json",
-      "cd \"$INDY_SDK_SRC\"/vcx/dummy-cloud-agent && cargo build",
       "echo 'cd \"$INDY_SDK_SRC\"/vcx/dummy-cloud-agent; RUST_LOG=\"indy=${var.log_level_indy},vcx=${var.log_level_vcx},indy_dummy_agent=${var.log_level_dummy}\" pm2 start cargo --name dummy -- run config/${var.agency_name}.json' > \"$HOME/startagent.sh\"",
       "chmod +x \"$HOME/startagent.sh\""
     ]

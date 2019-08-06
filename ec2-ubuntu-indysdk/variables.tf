@@ -11,7 +11,7 @@ variable "source-ami" {
 }
 
 variable "instance-type" {
-  default = "t2.medium"
+  default = "t2.small"
 }
 
 variable "keypair-name" {
@@ -22,4 +22,7 @@ variable "private-key-path" {
   default = "/path/to/your/ec2/private-key"
 }
 
+variable "instance-name" {
+  default = "indysdk-machine"
+}
 
